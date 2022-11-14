@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  backend:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5000:5000"
+    networks:
+      - backend
+    depends_on:
+        - db
+  db:
+    image: mysql:8.0.18
+    command: --default-authentication-plugin=mysql_native_password
+    security_opt:
+      - seccomp:unconfined
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'dev'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'UsDATAvok4ykVhpeR1Hh'
+      MYSQL_ROOT_PASSWORD: 'UsDATAvok4ykVhpeR1Hh'
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+volumes:
+  db:
+networks:
+  backend:
+

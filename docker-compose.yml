@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  backend:
+    network_mode: host
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+
+
+
